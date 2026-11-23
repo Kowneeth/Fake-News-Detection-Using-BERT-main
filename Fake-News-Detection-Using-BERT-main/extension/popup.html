@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake News Intelligence</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 380px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #090d16;
+      color: #f1f5f9;
+      padding: 16px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #818cf8;
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      color: #fff;
+      padding: 8px;
+      font-size: 12px;
+      resize: none;
+      outline: none;
+      margin-bottom: 8px;
+    }
+    textarea:focus { border-color: #6366f1; }
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    button {
+      flex: 1;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: #4f46e5;
+      color: white;
+    }
+    .btn-primary:hover { background: #4338ca; }
+    .btn-secondary {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+    }
+    .btn-secondary:hover { background: #334155; color: white; }
+    .card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 12px;
+      display: none;
+    }
+    .verdict-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .badge-fake { color: #ef4444; font-weight: 800; font-size: 16px; }
+    .badge-real { color: #10b981; font-weight: 800; font-size: 16px; }
+    .bar-container {
+      background: #1e293b;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 6px 0;
+    }
+    .bar-fill { height: 100%; width: 0%; transition: width 0.4s ease; }
+    .bar-fake { background: #ef4444; }
+    .bar-real { background: #10b981; }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+    .highlighted {
+      font-size: 11px;
+      background: #030712;
+      padding: 8px;
+      border-radius: 6px;
+      margin-top: 8px;
+      line-height: 1.4;
+      border: 1px solid #1f2937;
+    }
+    #loader {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #818cf8;
+    }
+    footer {
+      margin-top: 10px;
+      font-size: 10px;
+      color: #64748b;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span>🛡️ Fake News Intelligence</span>
+    </div>
+    <span style="font-size: 10px; color: #10b981;">● Online</span>
+  </header>
+
+  <textarea id="textInput" placeholder="Paste tweet, headline, or claim to verify..."></textarea>
+
+  <div class="btn-group">
+    <button id="verifyBtn" class="btn-primary">Verify Text</button>
+    <button id="verifyUrlBtn" class="btn-secondary">Check Current Page</button>
+  </div>
+
+  <div id="loader">Analyzing disinformation patterns...</div>
+
+  <div id="resultCard" class="card">
+    <div class="verdict-header">
+      <span id="verdictText" class="badge-fake">FAKE</span>
+      <span id="confText" style="font-size: 12px; font-weight: 700; color: #818cf8;">94% Confidence</span>
+    </div>
+    
+    <div class="bar-container">
+      <div id="progressBar" class="bar-fill bar-fake"></div>
+    </div>
+
+    <div class="stat-row">
+      <span>Disinformation Risk:</span>
+      <strong id="riskText" style="color: #f87171;">CRITICAL</strong>
+    </div>
+    <div class="stat-row">
+      <span>Clickbait Score:</span>
+      <strong id="clickbaitText">0%</strong>
+    </div>
+
+    <div id="highlightContainer" class="highlighted"></div>
+  </div>
+
+  <footer>Connected to local AI engine: http://localhost:8000</footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
